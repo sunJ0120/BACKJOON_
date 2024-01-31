@@ -1,32 +1,34 @@
 package 백준_브론즈5;
 
+/*
+20240127 try
+구문이 익숙치 않은 관계로
+한번더 복습 필요.
+ */
+
 import java.io.*;
 import java.util.stream.Stream;
 
 public class main_11720 {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int n = Integer.parseInt(br.readLine());
         int ans = 0;
 
-        int[] ansList = Stream.of(br.readLine()
-                .split(""))
+        int[] nlist = Stream.of(br.readLine().split(""))
                 .mapToInt(Integer::parseInt)
                 .toArray();
 
-        //Stream.of을 이용해서 Stream 생성
-        //.mapToInt(Integer::parseInt) : String array의 요소 하나하나를 Integer.parseInt를 적용해서 바꾼다.
-        //toArray() : array로 변경
-
-        for(int i = 0; i< n; i++){
-            ans += ansList[i];
+        for (int i = 0; i < n; i++) {
+            ans += nlist[i];
         }
-
         bw.write(ans + "\n");
+
         br.close();
         bw.flush();
-        br.close();
+        bw.close();
+
     }
 }

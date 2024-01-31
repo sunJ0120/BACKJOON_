@@ -2,6 +2,12 @@ package 백준_브론즈5;
 
 import java.io.*;
 
+/*
+20240127 풀이
+마찬가지로 완벽하게 풀지는 못했으므로
+다시 한 번 더 풀어야함
+ */
+
 public class main_11720_2 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -9,19 +15,21 @@ public class main_11720_2 {
 
         int n = Integer.parseInt(br.readLine());
         int ans = 0;
-
         String str = br.readLine();
-        int[] ansList = new int[n];
+//        char[] charArray = br.readLine().toCharArray();
+//
+//        for (int i = 0; i < n; i++) {
+//            ans += charArray[i] - '0';
+//        }
 
-        //charAt으로 char로 변경하고 '0'을 빼서 숫자로 만드는 방법
-        for(int i = 0; i< n; i++){
-            ansList[i] = str.charAt(i) - '0';
-            ans += ansList[i];
+        for (int i = 0; i < n; i++) {
+            ans += str.charAt(i) - '0';
         }
 
         bw.write(ans + "\n");
+
         br.close();
         bw.flush();
-        br.close();
+        bw.close();
     }
 }
