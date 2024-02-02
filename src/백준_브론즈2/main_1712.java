@@ -4,11 +4,30 @@ import java.io.*;
 import java.util.StringTokenizer;
 
 /*
-BigInt 이런거 사용할 필요 없이 그냥 수식을 잘 구하면 되는 것이다..
-다시 한 번 더 보기!!!!!
+1. 애초에 B >= C 이면 손익분기점이 생길 수 없다.
+2. 손익분기점 매출 구하는 공식
+(손익분기점 매출 개수) = (A(고정비) / C(가격) - B(비용)) + 1 (손익분기점 이득이 시작되는 부분을 찾기 위해 +1)
+
  */
 public class main_1712 {
     public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+
+        int A = Integer.parseInt(st.nextToken());
+        int B = Integer.parseInt(st.nextToken());
+        int C = Integer.parseInt(st.nextToken());
+
+        if(B >= C){ //손익분기점 불가
+            bw.write(-1 + "\n");
+        }else{
+            bw.write(((A/(C-B))+1) + "\n");
+        }
+
+        br.close();
+        bw.flush();
+        bw.close();
     }
 }
