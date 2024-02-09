@@ -9,20 +9,13 @@ public class main_1259 {
 
         while (true) { //0이 나오면 끝
             String str = br.readLine();
-            int count = 0;
-            int j = str.length()-1;
+            StringBuilder stb = new StringBuilder();
+            stb.append(str);
 
             if(str.equals("0")){
                 break;
             }
-
-            for (int i = 0; i < str.length()/2; i++) {
-                if(str.charAt(i) == str.charAt(j)){
-                    count++;
-                }
-                j--;
-            }
-            if(count == str.length()/2){ //펠린드롬수
+            if(str.equals(stb.reverse().toString())){ //펠린드롬수 검사
                 bw.write("yes" + "\n");
             }else{
                 bw.write("no" + "\n");
