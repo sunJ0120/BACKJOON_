@@ -10,28 +10,33 @@ package 백준_브론즈1;
 import java.io.*;
 
 public class main_2748 {
-    public static int num = 1;
-    public static long pivot(long a, long b,int n){
-        if(num == n){
-            return b; //피보나치 수 리턴하기
-        }
-        num++;
-        return pivot(b,a+b,n);
-    }
+    public static long[] dp;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int n = Integer.parseInt(br.readLine());
-        long ans;
+        dp = new long[n+1];
 
-        long a = 0;
-        long b = 1;
+        //-1로 배열 전부 초기화
+        for (int i = 0; i <= n; i++) {
+            dp[i] = -1;
+        }
 
-        ans = pivot(a, b, n);
+        dp[0] = 0;
+        dp[1] = 1;
 
-        bw.write(ans + "\n");
+        bw.write(fib(n) + "\n");
         bw.flush();
         br.close();
+    }
+
+    public static long fib(int n){
+        if(dp[n] == -1){ //배열에 값이 없다면
+            dp[n] = fib(n-1) + fib(n-2);
+        }
+
+        return dp[n];
     }
 }
