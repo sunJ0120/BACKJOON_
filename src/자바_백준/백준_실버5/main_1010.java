@@ -1,28 +1,22 @@
 package 자바_백준.백준_실버5;
 
 import java.io.*;
-import java.math.BigInteger;
 import java.util.StringTokenizer;
 
 public class main_1010 {
-    public static BigInteger bridge(BigInteger n, BigInteger m){
-        BigInteger a = BigInteger.ONE;
-        BigInteger b = BigInteger.ONE;
+    public static int[][] dp = new int[30][30];
 
-        if((m.subtract(n)).compareTo(n) == -1){ //m-n이 더 작다.
-            n = m.subtract(n); //바꾸기
+    public static int bridge(int n, int r) {
+        if (dp[n][r] > 0) { //값이 들어있다.
+            return dp[n][r];
         }
-        int num = n.intValue();
-
-        for(int i = 0; i<num;i++){
-            a = a.multiply(m);
-            m = m.subtract(BigInteger.ONE);
-
-            b = b.multiply(n);
-            n = n.subtract(BigInteger.ONE);
+        if (n == r || r == 0) {
+            return dp[n][r] = 1;
         }
-        return a.divide(b);
+
+        return dp[n][r] = bridge(n-1,r-1) + bridge(n-1,r);
     }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -31,13 +25,14 @@ public class main_1010 {
         StringTokenizer st;
 
         for (int i = 0; i < num; i++) {
-            st = new StringTokenizer(br.readLine(), " ");
-            BigInteger n = new BigInteger(st.nextToken());
-            BigInteger m = new BigInteger(st.nextToken());
-            bw.write(bridge(n,m) + "\n");
+            st = new StringTokenizer(br.readLine());
+            int n = Integer.parseInt(st.nextToken());
+            int m = Integer.parseInt(st.nextToken());
+
+            bw.write(bridge(m, n) + "\n");
         }
-        bw.flush();
         br.close();
+        bw.flush();
         bw.close();
     }
 }
