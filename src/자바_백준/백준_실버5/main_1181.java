@@ -22,6 +22,7 @@ public class main_1181 {
             str[i] = br.readLine();
         }
 
+<<<<<<< HEAD
 //        Arrays.sort(str, new Comparator<String>() {
 //            @Override
 //            public int compare(String o1, String o2) {
@@ -53,5 +54,9 @@ public class main_1181 {
         bw.flush();
         bw.close();
         br.close();
+=======
+        Arrays.sort(str,)
+        });
+>>>>>>> try
     }
 }
