@@ -21,5 +21,37 @@ public class main_1181 {
         for (int i = 0; i < num; i++) {
             str[i] = br.readLine();
         }
+
+//        Arrays.sort(str, new Comparator<String>() {
+//            @Override
+//            public int compare(String o1, String o2) {
+//                if (o1.length() == o2.length()) {
+//                    return o1.compareTo(o2); //사전순
+//                } else {
+//                    return o1.length() - o2.length(); //길이순
+//                }
+//            }
+//        });
+
+        //람다식
+        Arrays.sort(str, (o1, o2) -> {
+            if (o1.length() == o2.length()) {
+                return o1.compareTo(o2); //사전순
+            } else {
+                return o1.length() - o2.length(); //길이순
+            }
+        });
+
+        bw.write(str[0] + "\n");
+        //중복제거
+        for(int i = 1; i < num; i++){
+            if(!(str[i-1].equals(str[i]))){
+                bw.write(str[i] + "\n");
+            }
+        }
+
+        bw.flush();
+        bw.close();
+        br.close();
     }
 }
