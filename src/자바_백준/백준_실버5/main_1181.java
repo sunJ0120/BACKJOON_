@@ -21,8 +21,5 @@ public class main_1181 {
         for (int i = 0; i < num; i++) {
             str[i] = br.readLine();
         }
-
-        Arrays.sort(str,)
-        });
     }
 }
