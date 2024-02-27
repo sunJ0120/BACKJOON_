@@ -1,9 +1,8 @@
 package 자바_백준.백준_실버5;
 
-import javax.sound.midi.SysexMessage;
 import java.io.*;
 import java.util.Arrays;
-import java.util.Comparator;
+
 /*
 string으로 받아서 int로 변환해서 비교하는 방법을 사용해야 할듯
 일단 받아서 char 배열로 변환이 가능한지를 보자.
