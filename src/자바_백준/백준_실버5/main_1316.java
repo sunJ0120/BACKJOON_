@@ -10,7 +10,6 @@ package 자바_백준.백준_실버5;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 public class main_1316 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -22,10 +21,10 @@ public class main_1316 {
             String str = br.readLine();
             boolean[] words = new boolean[26];
             for(int j = 1; j < str.length(); j++){
-                if((str.charAt(j-1) - 97) != (str.charAt(j) - 97)){
-                    words[str.charAt(j-1) - 97] = true;
+                if((str.charAt(j-1) - 'a') != (str.charAt(j) - 'a')){
+                    words[str.charAt(j-1) - 'a'] = true;
                 }
-                if(words[str.charAt(j) - 97] == true){
+                if(words[str.charAt(j) - 'a'] == true){
                     count--;
                     break;
                 }
