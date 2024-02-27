@@ -1,28 +1,36 @@
 package 자바_백준.백준_실버5;
 
 import java.io.*;
-import java.util.Arrays;
 
 /*
-string으로 받아서 int로 변환해서 비교하는 방법을 사용해야 할듯
-일단 받아서 char 배열로 변환이 가능한지를 보자.
+카운팅 정렬을 이용해보자.
+자릿수 구하기
+1. 10으로 나눈 나머지를 계속 구한다.
+2. 수를 10으로 나눈 몫으로 바꿔준다.
  */
 public class main_1427 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        char[] str = br.readLine().toCharArray();
+        StringBuilder stb = new StringBuilder();
 
-        Arrays.sort(str);
+        int n = Integer.parseInt(br.readLine());
 
-        for(int i = str.length-1; i>= 0; i--){ //굳이 내림차순 정렬할 필요 없이 꺼꾸로 보면 된다.
-            bw.write(str[i]);
+        int[] num = new int[10];
+
+        while(n > 0){
+            num[n%10]++; //숫자가 존재한다면 +1이 된다.
+            n /= 10;
         }
-        bw.write("\n");
 
-        bw.flush();
-        bw.close();
+        for (int i = 9; i >= 0; i--) {
+            while(num[i]-- > 0){ //숫자가 나온적이 있으면
+                stb.append(i);
+            }
+        }
+        stb.append("\n");
+        System.out.println(stb);
+
         br.close();
     }
 }
