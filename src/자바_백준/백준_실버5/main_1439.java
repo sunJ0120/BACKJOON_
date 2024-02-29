@@ -13,6 +13,7 @@ import static java.lang.Math.min;
 
 두가지 경우를 비교해서 어떤 것을 뒤집는것이 최소인지를 구한다.
 * 마지막은 무조건 추가해야 한다는 개념을 이해하는 것이 중요하다.
+
  */
 public class main_1439 {
     public static void main(String[] args) throws IOException {
