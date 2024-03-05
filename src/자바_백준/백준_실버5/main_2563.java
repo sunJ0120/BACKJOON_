@@ -10,28 +10,29 @@ import java.util.StringTokenizer;
  */
 public class main_2563 {
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
-
-        boolean[][] cord = new boolean[100+1][100+1];
-
         StringTokenizer st;
-        int ans = 0;
+
+        boolean[][] paper = new boolean[100][100];
+        int area = 0;
+
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine(), " ");
-
             int x = Integer.parseInt(st.nextToken());
             int y = Integer.parseInt(st.nextToken());
 
-            for (int j = y + 10; j > y; j--) {
-                for (int z = x; z < x + 10; z++) {
-                    if(!cord[j][z]){ //값이 없다면
-                        cord[j][z] = true;
-                        ans++; //넓이 하나 더하기
+            for(int j = y+10; j < y; j++){ //y
+                for (int z = x; z < x + 10; z++) { //x
+                    if(!paper[j][z]){
+                        paper[j][z] = true;
+                        area++;
                     }
+
                 }
             }
         }
-        System.out.println(ans);
+        System.out.println(area);
     }
 }
