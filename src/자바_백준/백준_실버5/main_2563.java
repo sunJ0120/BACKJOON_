@@ -15,7 +15,7 @@ public class main_2563 {
         int n = Integer.parseInt(br.readLine());
         StringTokenizer st;
 
-        boolean[][] paper = new boolean[100][100];
+        boolean[][] paper = new boolean[100+1][100+1];
         int area = 0;
 
         for (int i = 0; i < n; i++) {
@@ -23,7 +23,7 @@ public class main_2563 {
             int x = Integer.parseInt(st.nextToken());
             int y = Integer.parseInt(st.nextToken());
 
-            for(int j = y+10; j < y; j++){ //y
+            for(int j = y+10; j > y; j--){ //y
                 for (int z = x; z < x + 10; z++) { //x
                     if(!paper[j][z]){
                         paper[j][z] = true;
