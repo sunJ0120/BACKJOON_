@@ -18,9 +18,18 @@ public class main_2941 {
 
         String[] chroa = new String[]{"c=", "c-", "dz=", "d-", "lj", "nj", "s=", "z="};
 
-        for(int i = 0; i< chroa.length; i++){
-            if(str.contains(chroa[i])){ //분리해야함. 값이 누적된다.
-                count += (str.length() - str.replace(chroa[i],"").length()); //이 방법 알아두기
+        StringBuilder stb = new StringBuilder();
+
+        for(int j = 0; j<str.length(); j++){
+            stb.append(str.charAt(j));
+            for(int i = 0; i< chroa.length; i++){
+                if(stb.toString().contains(chroa[i])){
+                    count += ((str.length() - (str.replace(chroa[i], "")).length()) / chroa[i].length());
+                    stb.setLength(0); //초기화
+                }
+            }
+            if(stb.length() != 0){ //초기화 되지 않았다.
+                count++;
             }
         }
 
