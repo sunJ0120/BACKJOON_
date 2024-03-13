@@ -6,10 +6,17 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 /*
-중요한 것은, 앞에서 더한 것들을 빼주면서 진행하는게 중요할듯
-이거 어떻게 해야할지 모르겠다... 답 찾아보기
- */
+Brute Force
+1. N-7 만큼의 이동이 가능하다.
+2. 시작점 B or W 두가지를 나눈다.
+
+** 64를 빼서 반대를 구한다는 것을 기억하자.
+** 이 문제의 경우 생각의 틀을 정리해두기
+*/
+
 public class main_1018 {
+
+    public static char[][] chess;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
@@ -17,56 +24,47 @@ public class main_1018 {
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
 
-        boolean[][] search = new boolean[n][m]; //굳이 이중배열을 만들어야 할까?
-        char[][] chess = new char[n][m];
+        chess = new char[n][m];
 
         for(int i = 0; i<n; i++){
             chess[i] = br.readLine().toCharArray(); //이거 확인 필요
         }
 
-        /*
-        search 과정
-         */
-        int start = 0;
-        int end = 7;
-        int bw = 0; //0 -> B, 1 -> W
+        int awsMin = 64;
 
-        int i;
-        int j;
-
-        boolean bool = true;
-
-        while(bool){
-            for(i = start; i<end; i++){
-                for(j = start; j<end; j++){
-                    //start 조건
-                    if(j == start){ //if문이 너무 많음..
-                        if(chess[i][j] == 'W'){
-                            bw = 1;
-                        }
-
-                        search[i][j] = true;
-                    }
-
-                    //검사
-                    if(!search[i][j]){ //false
-                        if(bw == 0){ //이전이 B
-                            if(chess[i][j] == 'W'){
-                                search[i][j] = true;
-                            }
-                            bw = 1;
-                        }else{ //이전이 W
-                            if(chess[i][j] == 'B'){
-                                search[i][j] = true;
-                            }
-                            bw = 0;
-                        }
-                    }
-
-                }
+        for (int i = 0; i < n - 7; i++) { //갈수 있는 시작점들을 명시
+            for (int j = 0; j < m - 7; j++) {
+                awsMin = Math.min(awsMin, Math.min(find(i, j), 64 - find(i, j)));
             }
         }
+        System.out.println(awsMin);
+    }
 
+    public static int find(int i, int j){
+        int count = 0;
+        int end_i = i+8;
+        int end_j = j+8;
 
+        char TF = chess[i][j]; //첫 항을 따온다.
+
+        for(int z = i; z<end_i; z++){
+            for(int l = j; l<end_j; l++){
+                if(chess[z][l] != TF){ //첫항은 무조건 맞겠지만, 기준을 위해 잡는다.
+                    count++;
+                }
+                if(TF == 'W'){
+                    TF = 'B';
+                }else{
+                    TF = 'W';
+                }
+            }
+            //한번더 바꾸기
+            if(TF == 'W'){
+                TF = 'B';
+            }else{
+                TF = 'W';
+            }
+        }
+        return count;
     }
 }
