@@ -62,7 +62,6 @@ public class main_1018 {
                 TF = 'W';
             }
         }
-
         return (Math.min(count, 64 - count));
     }
 }
