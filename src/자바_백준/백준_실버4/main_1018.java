@@ -7,64 +7,62 @@ import java.util.StringTokenizer;
 
 /*
 Brute Force
-1. N-7 만큼의 이동이 가능하다.
-2. 시작점 B or W 두가지를 나눈다.
-
-** 64를 빼서 반대를 구한다는 것을 기억하자.
-** 이 문제의 경우 생각의 틀을 정리해두기
+1. 옆으로 n-7 만큼의 이동이 가능하다.
+2. 아래로 n-7 만큼의 이동이 가능하다.
+3. 내부에서도 8번의 이동이 필요하다.
+4. 내부에서의 로직은 for문이 다시 들어가야 하기 때문에 따로 method로 뺀다.
+5. 앞이 b인경우, w인 경우를 나눠야 하기 때문에, 이의 경우 8*8인 64로부터 빼는 것으로 한다.
 */
 
 public class main_1018 {
-
     public static char[][] chess;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
+        int small = 2500; //최댓값으로 잡아놓기
 
         chess = new char[n][m];
 
-        for(int i = 0; i<n; i++){
-            chess[i] = br.readLine().toCharArray(); //이거 확인 필요
+        for (int k = 0; k < n; k++) {
+            chess[k] = br.readLine().toCharArray();
         }
 
-        int awsMin = 64;
-
-        for (int i = 0; i < n - 7; i++) { //갈수 있는 시작점들을 명시
+        for (int i = 0; i < n - 7; i++) { //이 내부에서 또 비교
             for (int j = 0; j < m - 7; j++) {
-                awsMin = Math.min(awsMin, Math.min(find(i, j), 64 - find(i, j)));
+                small = Math.min(small, find(i, j));
             }
         }
-        System.out.println(awsMin);
+        System.out.println(small);
     }
 
-    public static int find(int i, int j){
+    public static int find(int i, int j) {
+        //초기 collect 값을 잡아야 한다.
+        char TF = chess[i][j];
         int count = 0;
-        int end_i = i+8;
-        int end_j = j+8;
 
-        char TF = chess[i][j]; //첫 항을 따온다.
-
-        for(int z = i; z<end_i; z++){
-            for(int l = j; l<end_j; l++){
-                if(chess[z][l] != TF){ //첫항은 무조건 맞겠지만, 기준을 위해 잡는다.
+        for (int w = i; w < i + 8; w++) {
+            for (int z = j; z < j + 8; z++) {
+                if (chess[w][z] != TF) { //같지 않다면 추가해야 한다.
                     count++;
                 }
-                if(TF == 'W'){
+                if (TF == 'W') { //TF swop
                     TF = 'B';
-                }else{
+                } else {
                     TF = 'W';
                 }
             }
-            //한번더 바꾸기
-            if(TF == 'W'){
+            //swop
+            if (TF == 'W') { //TF swop
                 TF = 'B';
-            }else{
+            } else {
                 TF = 'W';
             }
         }
-        return count;
+
+        return (Math.min(count, 64 - count));
     }
 }
