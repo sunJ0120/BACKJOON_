@@ -57,7 +57,6 @@ public class main_1065 {
                 num++; //하나더
             }
         }
-
         System.out.println(ans);
     }
 }
