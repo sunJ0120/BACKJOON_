@@ -1,67 +1,49 @@
 package 자바_백준.백준_실버4;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /*
 요세푸스 문제
 중요한 것은, n을 나눈 나머지를 구해서 그걸 하나하나 지워가는 것이다.
 이거 헷갈리는데, 안에서 계속 돌아야 하나..? 풀이를 찾아보자.
  */
+
+/*
+좀 헷갈리는데, 시작값을 어떻게 매겨..?
+ */
 public class main_1158 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringBuffer stb = new StringBuffer();
 
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
         int n = Integer.parseInt(st.nextToken());
         int k = Integer.parseInt(st.nextToken());
-        int count = n;
-        int num = 1;
-        int ans;
+        int count = 1;
 
-        List<Integer> nlist = new ArrayList<Integer>(n);
-        List<Integer> anslist = new ArrayList<Integer>();
+        stb.append("<");
 
-        for(int i = 1; i<=n; i++){
-            nlist.add(i);
+        List<Integer> yosep = new LinkedList<>();
+
+        for (int i = 1; i <= n; i++) {
+            yosep.add(i);
         }
 
-        while(anslist.size() <= n){
-            ans = num * k;
-            if(ans%count != 0){
-                anslist.add(ans%n);
-                count--;
-            }else{ //0이다!
-                anslist.add(n);
-            }
+        int baseIndex = 0;
+
+        while(yosep.size()>1){ //뒤에 하나 남았을때
+            int nextIndex = (((baseIndex+(k-1))%yosep.size())); //(baseIndex+(k-1) 여기 이 부분이랑, size로 나누는 부붕 주의!
+
+            stb.append(yosep.get(nextIndex));
+            stb.append(", ");
+            baseIndex = nextIndex; //시작점을 차지하기 위해서
+            yosep.remove(nextIndex);
         }
+        stb.append(yosep.get(0)); //남은거 하나 가져오기
+        stb.append(">");
 
-//        bw.write("< ");
-//        while(count <= n){
-//            ans = num * k;
-//            if(ans%n != 0){
-//                if(count == n){
-//                    bw.write(ans%n);
-//                }else{
-//                    bw.write(ans%n + ", ");
-//                }
-//            }else{ //0이다!
-//                if(count == n){
-//                    bw.write(n);
-//                }else{
-//                    bw.write(n + ", ");
-//                }
-//            }
-//            count++; //하나 적었으니 count 증가
-//            num++;
-//        }
-//        bw.write(">");
-
-        bw.flush();
+        System.out.println(stb);
         br.close();
-        bw.close();
     }
 }
