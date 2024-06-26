@@ -20,30 +20,24 @@ public class main_1158 {
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
         int n = Integer.parseInt(st.nextToken());
         int k = Integer.parseInt(st.nextToken());
-        int count = 1;
-
         stb.append("<");
 
-        List<Integer> yosep = new LinkedList<>();
-
+        LinkedList<Integer> yosep = new LinkedList<Integer>();
         for (int i = 1; i <= n; i++) {
             yosep.add(i);
         }
-
         int baseIndex = 0;
+        int index;
 
-        while(yosep.size()>1){ //뒤에 하나 남았을때
-            int nextIndex = (((baseIndex+(k-1))%yosep.size())); //(baseIndex+(k-1) 여기 이 부분이랑, size로 나누는 부붕 주의!
-
-            stb.append(yosep.get(nextIndex));
+        while(yosep.size() > 1){ //k-1 : 3씩 이동이지만, 인덱스상 2씩 이동해야 한다.
+            index = (baseIndex+(k-1))%yosep.size(); //인덱스 설정, size로 나눠야 이를 넘어가지 않는다.
+            stb.append(yosep.get(index));
             stb.append(", ");
-            baseIndex = nextIndex; //시작점을 차지하기 위해서
-            yosep.remove(nextIndex);
+            baseIndex = index; //시작 위치 변경
+            yosep.remove(index);
         }
-        stb.append(yosep.get(0)); //남은거 하나 가져오기
-        stb.append(">");
 
+        stb.append(yosep.pop() + ">");
         System.out.println(stb);
-        br.close();
     }
 }
