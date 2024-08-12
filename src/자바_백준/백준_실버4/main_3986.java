@@ -9,37 +9,35 @@ public class main_3986 {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int n = Integer.parseInt(br.readLine());
+        int cnt = 0;
 
         for(int i = 0; i<n;i++){
             String st = br.readLine();
             char[] greatwords = st.toCharArray();
-            char ch; //비교용
-
+            //stack 생성
             Stack<Character> stk = new Stack<>();
 
-            for(char greatword : greatwords){
-                stk.add(greatword);
-            }
-
-            int cnt = 0;
-            int ans = 0;
-
-            while(!stk.empty()){
-                ch = stk.pop();
-                if(ch == stk.peek()){
-                    stk.pop(); //하나 더 지움
-
-                }else{
-                    if(cnt > 0){
-                        break;
+            for(int j = 0; j<greatwords.length; j++){
+                if (stk.empty()) {
+                    stk.push(greatwords[j]);
+                }else{ //stack 비지 않았음
+                    if(stk.peek() == greatwords[j]){
+                        stk.pop(); //하나 지우기
+                    }else{
+                        stk.push(greatwords[j]);
                     }
-                    cnt++; //누적 카운드
                 }
             }
-            if(cnt == 0){
-                ans++;
+
+            if(stk.empty()){
+                cnt++;
             }
         }
+
+        bw.write(cnt + "\n");
+        bw.flush();
+        bw.close();
+        br.close();
 
     }
 }
