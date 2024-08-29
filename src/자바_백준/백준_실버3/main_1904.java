@@ -3,38 +3,27 @@ package 자바_백준.백준_실버3;
 import java.io.*;
 
 public class main_1904 {
+
+    public static Integer[] fibo;
+
+    public static int fibonachi(int num){
+        if (fibo[num] == null) {
+            fibo[num] = fibonachi(num-1) + fibonachi(num-2);
+        }
+        return fibo[num] % 15746;
+    }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int num = Integer.parseInt(br.readLine());
-        int cnt = 0;
+        fibo = new Integer[num+1];
 
-        for (int i = num / 2; i >= 0; i --) {
-            int a = 1; //분자
-            int b = 1; //분모
-            if(i != 0){
-                int cntt = 0;
-                int start = i + (num-(i*2));
-                while(cntt != i){
-                    a *= start;
-                    a %= 15746;
-                    start--;
-                    cntt++;
-                }
+        fibo[0] = 1; //초기화
+        fibo[1] = 1;
 
-                for (int j = 1; j <= i; j++) {
-                    b *= j;
-
-                    b %= 15746;
-                }
-            }
-            if(a != 0 && b != 0){
-                cnt += a / b;
-            }
-        }
-
-        bw.write(cnt + "\n");
+        bw.write( fibonachi(num) + "\n");
         bw.flush();
         br.close();
         bw.close();
