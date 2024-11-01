@@ -49,7 +49,7 @@ public class LinkedListNode{
         ll.append(3);
         ll.append(4);
         ll.retrieve();
-        ll.delete(2);
+        ll.delete(1);
         ll.retrieve();
     }
 }
