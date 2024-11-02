@@ -39,19 +39,20 @@ class Graph_2644{
         }
     }
 
-    public int dfs(int start, int end, int cnt) {
+    int ans = 0;
+
+    public void dfs(int start, int end, int cnt) {
 
         if(start == end){
-            return cnt;
+            ans = cnt;
         }
 
         for(Node_2644 n : nodes[start].link){
             if(!n.visit){
                 n.visit = true;
-                return dfs(n.data, end, cnt+1);
+                dfs(n.data, end, cnt+1);
             }
         }
-        return -1; //해당하는게 없을 경우
     }
 }
 public class main_2644 {
@@ -75,8 +76,13 @@ public class main_2644 {
             st = new StringTokenizer(br.readLine());
             gh.add(Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()));
         }
+        gh.dfs(start, end, 0);
 
-        bw.write( gh.dfs(start, end, 0)+ "\n");
+        if(gh.ans == 0){
+            gh.ans = -1; //경우의 수가 없음
+        }
+
+        bw.write( gh.ans + "\n");
         bw.flush();
         bw.close();
         br.close();
