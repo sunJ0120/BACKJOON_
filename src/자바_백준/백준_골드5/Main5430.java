@@ -52,7 +52,6 @@ public class Main5430 {
         bw.close();
     }
 
-
     public static boolean reverse(boolean pointer){
         return (pointer == true) ? false : true; //pointer 뒤집기
     }
