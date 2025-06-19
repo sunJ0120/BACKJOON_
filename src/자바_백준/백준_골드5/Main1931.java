@@ -7,49 +7,49 @@ import java.util.*;
 
 /**
  * 백준 1931 - 회의실 배정
- * - 완전 탐색을 이용해서 범위를 줄여나가는 방법으로 풀어보자.
+ * - 이거 완전탐색을 할 필요도 없는 문제다!!!
+ * - 그냥 정렬해서 타고타고 가다보면 최소가 보장되는 아름다운 문제이다....
+ * - 너무 즐겁다.
  */
 public class Main1931 {
-    static List<List<Integer>> li;
-    static int max;
-
-    //i는 인덱스, 이 이후부터 진행한다.
-    public static void findRoom(List<Integer> li2, int i, int cnt){
-        if(i >= li.size()){
-            max = Math.max(max,cnt); //max값을 저장한다.
-            return;
-        }
-
-        if(li.get(i).get(0) >= li2.get(1)){
-            findRoom(li.get(i), i+1, cnt+1); //다음값으로 이동한다.
-        }else{
-            findRoom(li2, i+1, cnt); //그대로 가서 다른 값을 찾는다.
-        }
-    }
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int roop = Integer.parseInt(br.readLine());
-        li = new ArrayList<>();
-        max = 0; //0으로 초기화
+        int cnt = 1;
+
+        List<int[]> lists = new ArrayList<>(); //이중 리스트로 구현한다.
 
         for(int i = 0; i<roop; i++){
+            int[] innerList = new int[2];
             StringTokenizer st = new StringTokenizer(br.readLine());
-            List<Integer> li2 = new ArrayList<>();
-            li2.add(Integer.parseInt(st.nextToken()));
-            li2.add(Integer.parseInt(st.nextToken()));
+            innerList[0] = Integer.parseInt(st.nextToken());
+            innerList[1] = Integer.parseInt(st.nextToken());
 
-            li.add(li2);
+            lists.add(innerList); //list에 구성된 innerList 추가하기
         }
 
-        for(int i = 0; i<roop; i++){
-            List<Integer> li2 = li.get(i);
-            findRoom(li2, i, 1); //이미 하나를 선택한거라서
-
-            if(roop - i <= max){
-                break; //더 적게 남았으면 의미가 없다.
+        //내부에 있는걸로 비교하니까 이렇게 int[]를 써줘야 한다!
+        Collections.sort(lists, new Comparator<int[]>(){
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                if(o1[1] == o2[1]){ //같을 경우
+                    //같을 경우, 시작으로 정렬해야 다음으로 간다.
+                    return o1[0] - o2[0];
+                }
+                return o1[1] - o2[1]; //두번째 요소로 오름차순 정리한다.
             }
+        });
+
+        int ind = 0;
+        int initNum = lists.get(ind++)[1]; //초기 시작값 설정
+        while(ind < roop){
+            if(lists.get(ind)[0] >= initNum) {
+                cnt++;
+                initNum = lists.get(ind)[1];
+            }
+            ind++;
         }
-        System.out.println(max);
+        System.out.println(cnt);
     }
 }
